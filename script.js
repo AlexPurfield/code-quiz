@@ -1,6 +1,11 @@
 //VARIABLES
 var questionsFormElement = document.querySelector("form");
 var startButton = document.querySelector("#start");
+var questionBody = document.querySelector(".show-question");
+var answerOptions= document.querySelector(".answers-list"); //accessing the array of answers withing questions list to display the multiple choice answers in the ul in the html (questionsList.answerList[0])
+
+
+
 //var multipleChoice= document.querySelector("#multiple-choice") 
 //console.log ({questionsFormElement, startButton});
 
@@ -9,34 +14,34 @@ var welcomeSection = document.querySelector("#welcome-page");
 var currentQuestionIndex = 0;
 
 var questionsList = [
-  {
+  { //[0]
     numberkey: 1,
-    questionTitle: "Commonly used data types do NOT include:",
-    answersList: ["1. strings", "2. booleans", "3. alerts", "4. numbers"],
-  },
+    questionText: "Commonly used data types do NOT include:",
+    answersList: ["strings", "booleans", "alerts", "numbers"],
+  },                //[0]       [1]         [2]         [3]
 
-  {
+  { //[1]
     numberkey: 2,
-    questionTitle: "Arrays in JavaScript can be used to store ______.",
+    questionText: "Arrays in JavaScript can be used to store ______.",
     answersList: ["1. numbers and strings", "2. other arrays", "3. booleans", "4. all of the above"],
   },
 
-  {
+  {//[2]
     numberkey: 3,
-    questionTitle: "The condition in an if/else statement is enclosed with _____.",
-    answersList: ["1. quotes", "2. curly brackets", "3. parenthesis", "4. square brackets"],
+    questionText: "The condition in an if/else statement is enclosed with _____.",
+    answersList: ["quotes", "curly brackets", "parenthesis", "square brackets"],
   },
 
-  {
+  { //[3]
     numberkey: 4,
-    questionTitle: "String values must be enclosed within _____ when being assigned to variables.",
-    answersList: ["1. commas", "2. curly brackets", "3. quotes", "4. paranthesis"],
+    questionText: "String values must be enclosed within _____ when being assigned to variables.",
+    answersList: [ "commas", "curly brackets", "quotes", "paranthesis"],
   },
 
-  {
+  { //[4]
     numberkey: 5,
-    questionTitle: "A very useful tool used during development and debugging for printing content to the debugger is:",
-    answersList: ["1. JavaScript", "2. terminal/bash", "3. for loops", "4. console.log"],
+    questionText: "A very useful tool used during development and debugging for printing content to the debugger is:",
+    answersList: ["JavaScript", "terminal/bash", "for loops", "console.log"],
   },
 ];
 console.log (questionsList[0]);
@@ -47,21 +52,35 @@ function startQuiz() {
   console.log("starting quiz");
   startButton.setAttribute("hidden", "true");
   welcomeSection.setAttribute("hidden", "true");
+
+//
   return
 
 }
 
 function getNextQuestion() {            //question [0] in the questionsList
   console.log("getting next question", questionsList[currentQuestionIndex])
-    var currentQuestion = questionsList[currentQuestionIndex]; console.log(currentQuestion);
-    questionsFormElement.innerHTML=JSON.stringify(questionsList[0].questionTitle);
+    var currentQuestion = questionsList[currentQuestionIndex]; 
+
+    //answerButton.innerHTML=JSON.stringify(currentQuestion.answersList[0])
     //multipleChoice.append(questionsList[0].answersList);
     
-    for (var i= 0; i < questionsList.length; i++) {
+    for (var currentQuestion= 0; currentQuestion < questionsList.length; currentQuestion++) {
       
     }
   //for loop at very end of function (currentQuestion++)
+return}
+
+function showQuestion() {
+    console.log("showing question on page");
+    numberkey(questionsList[0]).setAttribute("hidden","false");
 }
+
+function showMultipleChoice() {
+
+
+}
+
 
 function countdown() {
   setTimeout(() => {
@@ -69,20 +88,22 @@ function countdown() {
   }, 60000);
 }
 
+
+
 //EVENT LISTENERS
 
 startButton.addEventListener("click", (event) => {
   console.log(event.target);
   event.preventDefault();
   startQuiz();
+  getNextQuestion();
+  showQuestion();
 }
 );
-questionsFormElement.addEventListener("click", (event) => {
-    console.log(event.target);
-    event.preventDefault();
-    getNextQuestion();
-}
-) 
+
+
+
+
 
 
 
