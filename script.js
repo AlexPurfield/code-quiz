@@ -1,27 +1,33 @@
 //VARIABLES
-var questionsFormElement = document.querySelector("form");
-var startButton = document.querySelector("#start");
-var questionBody = document.querySelector("h2");
-var answerOptions = document.querySelector("ul"); //accessing the array of answers withing questions list to display the multiple choice answers in the ul in the html (questionsList.answerList[0])
-var welcomeSection = document.querySelector("#welcome-page");
+var questionsFormElement = document.getElementById("#quiz-form");
+var startButton = document.getElementById("#start");
+var questionBody = document.getElementById("#question");
+var answerOptions = document.getElementById("#answer"); //accessing the array of answers withing questions list to display the multiple choice answers in the ul in the html (questionsList.answerList[0])
+var welcomeSection = document.getElementById("#welcome-page");
 
-
-var currentQuestionIndex = [0];
+var currentQuestionIndex = 0;
 
 var questionsList = [
   {
     //[0]
-    rightAnswer: 'c',
+    rightAnswer: "c",
     questionText: "Commonly used data types do NOT include:",
-    answersList: { a: "strings", b: "booleans", c: "alerts", d: "numbers",
-  }}, //[0]       [1]         [2]         [3]
+    answersList: { 
+      a: "strings",
+      b: "booleans", 
+      c: "alerts", 
+      d: "numbers" }
+  }, //[0]       [1]         [2]         [3]
 
   {
     //[1]
     rightAnswer: "d",
     questionText: "Arrays in JavaScript can be used to store ______.",
     answersList: {
-      a: "numbers and strings",b: "other arrays",c: "booleans", d: "all of the above"
+      a: "numbers and strings",
+      b: "other arrays",
+      c: "booleans",
+      d: "all of the above",
     }
   },
 
@@ -30,31 +36,45 @@ var questionsList = [
     rightAnswer: "c",
     questionText:
       "The condition in an if/else statement is enclosed with _____.",
-    answersList: {a: "quotes", b: "curly brackets", c: "parenthesis", d: "square brackets",
-  }
-},
+    answersList: {
+      a: "quotes",
+      b: "curly brackets",
+      c: "parenthesis",
+      d: "square brackets",
+    }
+  },
 
   {
     //[3]
     rightAnswer: "c",
     questionText:
       "String values must be enclosed within _____ when being assigned to variables.",
-    answersList: {a:"commas", b:"curly brackets", c: "quotes", d: "paranthesis",
-  }},
+    answersList: {
+      a: "commas",
+      b: "curly brackets",
+      c: "quotes",
+      d: "paranthesis",
+    }
+  },
 
   {
     //[4]
     rightAnswer: "d",
     questionText:
       "A very useful tool used during development and debugging for printing content to the debugger is:",
-    answersList: {a: "JavaScript", b: "terminal/bash", c: "for loops", d: "console.log"},
+    answersList: {
+      a: "JavaScript",
+      b: "terminal/bash",
+      c: "for loops",
+      d: "console.log",
+    },
   },
 ];
 
 //FUNTIONS
 
 //start the quiz hides the start button and welcome message after click listed in event listeners
-function startQuiz() {
+function startQuiz(event) {
   console.log("starting quiz");
   startButton.setAttribute("hidden", "true");
   welcomeSection.setAttribute("hidden", "true");
@@ -65,7 +85,7 @@ function startQuiz() {
   var Answer3 = currentQuestion.answersList.c;
   var Answer4 = currentQuestion.answersList.d;
   if (startingQuiz === true) {
-    questionBody.textContent= currentQuestion.questionText;
+    questionBody.textContent = currentQuestion.questionText;
     var createLI = document.createElement("button");
     createLI.textContent = Answer1;
     answerOptions.appendChild(createLI);
@@ -76,35 +96,58 @@ function startQuiz() {
     createLI3.textContent = Answer3;
     answerOptions.appendChild(createLI3);
     var createLI4 = document.createElement("button");
-    createLI4.textContent = Answer4; 
+    createLI4.textContent = Answer4;
     answerOptions.appendChild(createLI4);
   } else {
-    return
-  };
+    return;
+  }
 }
 
-function compareAnswer() {
-  console.log("your answer");
-  var CorrectAnswser = questionsList.rightAnswer;
-  console.log(CorrectAnswser);
+function compareAnswer(event) {
+  console.log("your answer: " + event.target.textContent);
+  var correctAnswser = questionsList[currentQuestionIndex].rightAnswer;
+  console.log("Correct Answser: " + correctAnswser);
+  if (event.target.textContent === correctAnswser) {
+    //Handle correct answer
+    console.log("Correct!");
+  } else {
+    //Handle incorrect answer
+    console.log("Incorrect!");
+  }
 
+  //Move to the next question
+  currentQuestionIndex++;
+  if (currentQuestionIndex < questionsList.length) {
+    //Display the next question and answer options
+    var currentQuestion = questionsList[currentQuestionIndex];
+    questionBody.textContent = currentQuestion.questionText;
+    answerOptions.innerHTML = ""; //Clear previous answer options
+    var Answer1 = currentQuestion.answersList.a;
+    var Answer2 = currentQuestion.answersList.b;
+    var Answer3 = currentQuestion.answersList.c;
+    var Answer4 = currentQuestion.answersList.d;
 
+    var createButton1 = document.createElement("button");
+    createButton1.textContent = Answer1;
+    answerOptions.appendChild(createButton1);
+    //... (create and append buttons for other answers)
+    var createButton2= document.createElement("button");
+    createButton2.textContent = Answer2;
+    answerOptions.appendChild(createButton2);
+    var createButton3 = document.createElement("button");
+    createButton3.textContent= Answer3;
+    answerOptions.appendChild(createButton3);
+    var createButton4 = document.createElement("button");
+    createButton4.textContent= Answer4;
+    answerOptions.appendChild(createButton4);
 
-
+  } else {
+    //Quiz is over
+    console.log("Quiz over!");
+  }
 }
 
-
-
-
-
-  
-
-  
-  
-
-
-  // for (var i =0, i < questionsList.answersList)
-
+// for (var i =0, i < questionsList.answersList)
 
 //answerButton.innerHTML=JSON.stringify(currentQuestion.answersList[0])
 //multipleChoice.append(questionsList[0].answersList);
@@ -114,16 +157,15 @@ function compareAnswer() {
 //for loop at very end of function (currentQuestion++)
 
 //function showQuestion() {
-  //console.log("showing question on page");
-  //questionBody.append(questionsList[0].questionText);
-
+//console.log("showing question on page");
+//questionBody.append(questionsList[0].questionText);
 
 //questionsList[0].questionText.setAttribute("hidden","false");
 //for loop at very end of function (currentQuestion++)
 
 //function showMultipleChoice() {
-  //console.log("showing answer options on page");
-  //answerOptions.append(questionsList[0].answersList[0]);
+//console.log("showing answer options on page");
+//answerOptions.append(questionsList[0].answersList[0]);
 //}
 
 function countdown() {
@@ -134,19 +176,13 @@ function countdown() {
 
 //EVENT LISTENERS
 
-startButton.addEventListener("click", (event) => {console.log(event.target);
-  event.preventDefault();
-  startQuiz();
-  countdown();
-  //getNextQuestion();
-  //showQuestion();
-  //showMultipleChoice();
-});
+startButton.addEventListener("click", startQuiz)
 
-answerOptions.addEventListener("click", (event) =>
-{console.log(event.target);
+
+
+answerOptions.addEventListener("click", (event) => {
   event.preventDefault();
-event.compareAnswer();
+  compareAnswer(event);
 });
 
 //questionBody.questionsList[0].questionText.setAttribute("hidden", "false");
