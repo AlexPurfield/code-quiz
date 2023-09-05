@@ -42,4 +42,6 @@ form {
     background-color: #ffff;
 }
 
-
+#answer {
+    font-size: 30px;
+}
