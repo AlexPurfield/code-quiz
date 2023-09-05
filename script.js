@@ -1,27 +1,31 @@
 //VARIABLES
 var questionsFormElement = document.getElementById("#quiz-form");
-var startButton = document.getElementById("#start");
-var questionBody = document.getElementById("#question");
-var answerOptions = document.getElementById("#answer"); //accessing the array of answers withing questions list to display the multiple choice answers in the ul in the html (questionsList.answerList[0])
-var welcomeSection = document.getElementById("#welcome-page");
+var startButton = document.querySelector("#start");
+var questionBody = document.querySelector("h2");
+var answerOptions = document.querySelector("ul"); //accessing the array of answers withing questions list to display the multiple choice answers in the ul in the html (questionsList.answerList[0])
+var welcomeSection = document.querySelector("#welcome-page");
 
 var currentQuestionIndex = 0;
 
-var questionsList = [
+var userCorrect = 0; //number of correct answers
+var userIncorrect = 0; //number of incorrect answers
+
+
+var questionsList = [   //List of questions in an array var
   {
     //[0]
-    rightAnswer: "c",
+    rightAnswer: "alerts",
     questionText: "Commonly used data types do NOT include:",
     answersList: { 
       a: "strings",
       b: "booleans", 
       c: "alerts", 
       d: "numbers" }
-  }, //[0]       [1]         [2]         [3]
+  }, 
 
   {
     //[1]
-    rightAnswer: "d",
+    rightAnswer: "all of the above",
     questionText: "Arrays in JavaScript can be used to store ______.",
     answersList: {
       a: "numbers and strings",
@@ -33,7 +37,7 @@ var questionsList = [
 
   {
     //[2]
-    rightAnswer: "c",
+    rightAnswer: "parenthesis",
     questionText:
       "The condition in an if/else statement is enclosed with _____.",
     answersList: {
@@ -46,7 +50,7 @@ var questionsList = [
 
   {
     //[3]
-    rightAnswer: "c",
+    rightAnswer: "quotes",
     questionText:
       "String values must be enclosed within _____ when being assigned to variables.",
     answersList: {
@@ -59,7 +63,7 @@ var questionsList = [
 
   {
     //[4]
-    rightAnswer: "d",
+    rightAnswer: "console.log",
     questionText:
       "A very useful tool used during development and debugging for printing content to the debugger is:",
     answersList: {
@@ -74,6 +78,7 @@ var questionsList = [
 //FUNTIONS
 
 //start the quiz hides the start button and welcome message after click listed in event listeners
+//displays first question with mc answers if the person presses the start quiz button
 function startQuiz(event) {
   console.log("starting quiz");
   startButton.setAttribute("hidden", "true");
@@ -103,16 +108,21 @@ function startQuiz(event) {
   }
 }
 
+//compares the user answer to the correct answer and figures out if they're right or wrong
+
 function compareAnswer(event) {
-  console.log("your answer: " + event.target.textContent);
+  console.log("your answer: " + event.target.textContent); 
   var correctAnswser = questionsList[currentQuestionIndex].rightAnswer;
   console.log("Correct Answser: " + correctAnswser);
   if (event.target.textContent === correctAnswser) {
     //Handle correct answer
     console.log("Correct!");
+    userIncorrect++
   } else {
     //Handle incorrect answer
     console.log("Incorrect!");
+    alert("Incorrect");
+    userCorrect++
   }
 
   //Move to the next question
@@ -142,8 +152,11 @@ function compareAnswer(event) {
     answerOptions.appendChild(createButton4);
 
   } else {
-    //Quiz is over
+    //Quiz is over out of questions
     console.log("Quiz over!");
+    window.alert(
+      "Wrong Answers: " + userIncorrect + ";" + " Right Answers: " +userCorrect
+     );
   }
 }
 
@@ -166,28 +179,43 @@ function compareAnswer(event) {
 //function showMultipleChoice() {
 //console.log("showing answer options on page");
 //answerOptions.append(questionsList[0].answersList[0]);
-//}
 
-function countdown() {
-  setTimeout(() => {
-    console.log("quiz over");
-  }, 60000);
+var timerElement = document.querySelector("h3");
+
+var secondsLeft = 60;
+
+function setTime()  {
+var timerInterval = setInterval(function()  {
+  secondsLeft--;
+  timerElement.textContent = secondsLeft + "seconds left in quiz";
+  if(secondsLeft===0) {
+    clearInterval(timerInterval);
+    sendMessage("time is out");
+    }
+
+  }, 6000);
+  
 }
 
+//timerElement.addEventListener("click", (event) => {
+ // event.preventDefault();
+  //setTime();
+//});
+
+
 //EVENT LISTENERS
+//start quiz with click and begins timer countdown 
+startButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  setTime();
+  startQuiz();
+});
 
-startButton.addEventListener("click", startQuiz)
 
-
-
+// shows answer options 
 answerOptions.addEventListener("click", (event) => {
   event.preventDefault();
   compareAnswer(event);
 });
 
-//questionBody.questionsList[0].questionText.setAttribute("hidden", "false");
-// var questionQuestion= questionsList[0].questionText
-//console.log(questionQuestion);
-//questionBody.appendChild.questionQuestion;
-//questionQuestion.setAttribute("hidden","false");
-//questionBody.append.questionQuestion //
+
