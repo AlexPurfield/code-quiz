@@ -10,6 +10,9 @@ var currentQuestionIndex = 0;
 var userCorrect = 0; //number of correct answers
 var userIncorrect = 0; //number of incorrect answers
 
+var userScore= document.getElementById("#final-score");
+//userScore.setAttribute("hidden", "true");
+
 
 var questionsList = [   //List of questions in an array var
   {
@@ -117,12 +120,15 @@ function compareAnswer(event) {
   if (event.target.textContent === correctAnswser) {
     //Handle correct answer
     console.log("Correct!");
-    userIncorrect++
+    userCorrect++
+
   } else {
     //Handle incorrect answer
     console.log("Incorrect!");
     alert("Incorrect");
-    userCorrect++
+    userIncorrect++;    
+    secondsLeft= secondsLeft-10;
+    timerElement.innerHTML=secondsLeft;
   }
 
   //Move to the next question
@@ -160,25 +166,7 @@ function compareAnswer(event) {
   }
 }
 
-// for (var i =0, i < questionsList.answersList)
 
-//answerButton.innerHTML=JSON.stringify(currentQuestion.answersList[0])
-//multipleChoice.append(questionsList[0].answersList);
-
-// for (var currentQuestion= 0; currentQuestion < questionsList.length; currentQuestion++) {
-
-//for loop at very end of function (currentQuestion++)
-
-//function showQuestion() {
-//console.log("showing question on page");
-//questionBody.append(questionsList[0].questionText);
-
-//questionsList[0].questionText.setAttribute("hidden","false");
-//for loop at very end of function (currentQuestion++)
-
-//function showMultipleChoice() {
-//console.log("showing answer options on page");
-//answerOptions.append(questionsList[0].answersList[0]);
 
 var timerElement = document.querySelector("h3");
 
@@ -190,10 +178,10 @@ var timerInterval = setInterval(function()  {
   timerElement.textContent = secondsLeft + "seconds left in quiz";
   if(secondsLeft===0) {
     clearInterval(timerInterval);
-    sendMessage("time is out");
+    alert("time is out");
     }
 
-  }, 6000);
+  }, 1000);
   
 }
 
@@ -218,4 +206,6 @@ answerOptions.addEventListener("click", (event) => {
   compareAnswer(event);
 });
 
+localStorage.setItem("Wrong Answers", userIncorrect);
+localStorage.setItem("Right Answers", userCorrect);
 
