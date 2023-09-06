@@ -10,7 +10,8 @@ var currentQuestionIndex = 0;
 var userCorrect = 0; //number of correct answers
 var userIncorrect = 0; //number of incorrect answers
 
-var userScore= document.getElementById("#final-score");
+
+//var userScore= document.getElementById("#final-score");
 //userScore.setAttribute("hidden", "true");
 
 
@@ -160,12 +161,17 @@ function compareAnswer(event) {
   } else {
     //Quiz is over out of questions
     console.log("Quiz over!");
-    window.alert(
-      "Wrong Answers: " + userIncorrect + ";" + " Right Answers: " +userCorrect
-     );
+    userCorrect.textContent=userCorrect;
+    localStorage.setItem("Correct Answers", userCorrect);
+    userIncorrect.textContent=userIncorrect;
+    localStorage.setItem("Incorrect Answers", userIncorrect);
+
   }
 }
 
+function ShowScores() {
+  userCorrect.createElement("p")
+}
 
 
 var timerElement = document.querySelector("h3");
@@ -206,6 +212,6 @@ answerOptions.addEventListener("click", (event) => {
   compareAnswer(event);
 });
 
-localStorage.setItem("Wrong Answers", userIncorrect);
-localStorage.setItem("Right Answers", userCorrect);
 
+var endCorrect = localStorage.getItem("Correct Answers:")
+var endIncorrect = localStorage.getItem("Incorrect Answers:")
