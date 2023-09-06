@@ -6,7 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Alex Purfield Coding Quiz</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="./script.js"></script>
+    <script src="./script.js">
+      function redirect() {
+        window.location.href = "https://google.com";
+      }
+    </script>
   </head>
 
   <body>
@@ -36,10 +40,12 @@
     </main>
     <div class="finished-quiz">
       <h2>All done!</h2>
-      <p id="final-score"></p>
-      <form action="/action_page.php">
-        <label for="fname">Initials:</label>
-        <input type="text" id="fname" />
+      <h4>Your Score:<p id="score-percentage"></p></h4>
+      <form method="post">
+        <label for="initials">Initials:</label>
+        <input type="text" name="initials" id="input-initials" style="color: black;"
+        placeholder="Type your initials here"/>
+        <button id="submit-initials" onclick="redirect()"> Submit </button>
       </form>
     </div>
 

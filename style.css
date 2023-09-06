@@ -66,4 +66,13 @@ ul button {
 }
 .finished-quiz {
     display:none;
+    
+}
+
+input {
+    font-weight: bold;
+}
+
+::placeholder {
+    color: black;
 }

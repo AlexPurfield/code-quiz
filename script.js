@@ -1,10 +1,13 @@
 //VARIABLES
-var questionsFormElement = document.getElementById("#quiz-form");
+var questionsFormElement = document.querySelector("#quiz-form");
 var startButton = document.querySelector("#start");
 var questionBody = document.querySelector("h2");
 var answerOptions = document.querySelector("ul"); //accessing the array of answers withing questions list to display the multiple choice answers in the ul in the html (questionsList.answerList[0])
 var welcomeSection = document.querySelector("#welcome-page");
-var endQuiz = document.getElementsByClassName(".finished-quiz")
+var endQuiz = document.querySelector(".finished-quiz")
+
+var submitButton = document.querySelector("#submit-initals");
+var FinalScore=document.querySelector("#score-percentage");
 
 var currentQuestionIndex = 0;
 
@@ -162,16 +165,25 @@ function compareAnswer(event) {
   } else {
     //Quiz is over out of questions
     console.log("Quiz over!");
-    endQuiz.setAttribute("display", "block");
+    endQuiz.style.display='block';
+    //questionsFormElement.style.display='none';
 
     userCorrect.textContent=userCorrect;
     userIncorrect.textContent=userIncorrect;
     var totalAnswers = userCorrect + userIncorrect;
     console.log (totalAnswers);
     var userScore = userCorrect/totalAnswers*100;
-    localStorage.setItem("Score" , userScore);
+    localStorage.setItem("Score" , userScore); 
+   
+    FinalScore.textContent=userScore;
+    //endQuiz.appendChild(userScore);
+    //initialInput.textContent= initialInput;
+    //var userInitials = initialInput.textContent;
+    var initialInput = document.querySelector("#input-initials").value; localStorage.setItem("initials", initialInput);
+    document.getElementById('input-initials').value=localStorage.getItem("initials");
   }
 }
+
 
 
 
@@ -216,5 +228,6 @@ answerOptions.addEventListener("click", (event) => {
 });
 
 
-var endCorrect = localStorage.getItem("Correct Answers:")
-var endIncorrect = localStorage.getItem("Incorrect Answers:")
+
+
+
