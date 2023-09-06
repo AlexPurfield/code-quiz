@@ -4,6 +4,7 @@ var startButton = document.querySelector("#start");
 var questionBody = document.querySelector("h2");
 var answerOptions = document.querySelector("ul"); //accessing the array of answers withing questions list to display the multiple choice answers in the ul in the html (questionsList.answerList[0])
 var welcomeSection = document.querySelector("#welcome-page");
+var endQuiz = document.getElementsByClassName(".finished-quiz")
 
 var currentQuestionIndex = 0;
 
@@ -161,17 +162,17 @@ function compareAnswer(event) {
   } else {
     //Quiz is over out of questions
     console.log("Quiz over!");
-    userCorrect.textContent=userCorrect;
-    localStorage.setItem("Correct Answers", userCorrect);
-    userIncorrect.textContent=userIncorrect;
-    localStorage.setItem("Incorrect Answers", userIncorrect);
+    endQuiz.setAttribute("display", "block");
 
+    userCorrect.textContent=userCorrect;
+    userIncorrect.textContent=userIncorrect;
+    var totalAnswers = userCorrect + userIncorrect;
+    console.log (totalAnswers);
+    var userScore = userCorrect/totalAnswers*100;
+    localStorage.setItem("Score" , userScore);
   }
 }
 
-function ShowScores() {
-  userCorrect.createElement("p")
-}
 
 
 var timerElement = document.querySelector("h3");
@@ -181,10 +182,12 @@ var secondsLeft = 60;
 function setTime()  {
 var timerInterval = setInterval(function()  {
   secondsLeft--;
-  timerElement.textContent = secondsLeft + "seconds left in quiz";
+  timerElement.textContent = secondsLeft + " seconds left in quiz";
   if(secondsLeft===0) {
     clearInterval(timerInterval);
-    alert("time is out");
+    console.log ("time is up and quiz is over");
+
+    
     }
 
   }, 1000);
