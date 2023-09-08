@@ -1,12 +1,12 @@
 //VARIABLES
 var questionsFormElement = document.querySelector("#quiz-form");
-var startButton = document.querySelector("#start");
+var startButton = document.getElementById("#start");
 var questionBody = document.querySelector("h2");
 var answerOptions = document.querySelector("ul"); //accessing the array of answers withing questions list to display the multiple choice answers in the ul in the html (questionsList.answerList[0])
 var welcomeSection = document.querySelector("#welcome-page");
 var endQuiz = document.querySelector(".finished-quiz")
 
-var submitButton = document.querySelector("#submit-initals");
+var submitButton = document.getElementById("#submit-initals");
 var FinalScore=document.querySelector("#score-percentage");
 
 var currentQuestionIndex = 0;
@@ -87,7 +87,7 @@ var questionsList = [   //List of questions in an array var
 
 //start the quiz hides the start button and welcome message after click listed in event listeners
 //displays first question with mc answers if the person presses the start quiz button
-function startQuiz(event) {
+function startQuiz() {
   console.log("starting quiz");
   startButton.setAttribute("hidden", "true");
   welcomeSection.setAttribute("hidden", "true");
@@ -172,10 +172,12 @@ function compareAnswer(event) {
     userIncorrect.textContent=userIncorrect;
     var totalAnswers = userCorrect + userIncorrect;
     console.log (totalAnswers);
-    var userScore = userCorrect/totalAnswers*100;
-    localStorage.setItem("Score" , userScore); 
+    var userScoreFunc = userCorrect/totalAnswers*100;
+    localStorage.setItem("Score" , userScoreFunc); 
+  
    
-    FinalScore.textContent=userScore;
+    FinalScore.textContent=userScoreFunc;
+    console.log(userScoreFunc);
     //endQuiz.appendChild(userScore);
     //initialInput.textContent= initialInput;
     //var userInitials = initialInput.textContent;
@@ -185,11 +187,13 @@ function compareAnswer(event) {
 }
 
 
-
+//console.log(userScore);
 
 var timerElement = document.querySelector("h3");
 
 var secondsLeft = 60;
+
+
 
 function setTime()  {
 var timerInterval = setInterval(function()  {
@@ -205,19 +209,47 @@ var timerInterval = setInterval(function()  {
   }, 1000);
   
 }
+function saveHighscore() {
+  userCorrect.textContent=userCorrect;
+  userIncorrect.textContent=userIncorrect;
+  var totalAnswers2 = userCorrect + userIncorrect;
+  console.log (totalAnswers2);
+  var userScore = userCorrect/totalAnswers2*100;
+  localStorage.setItem("Score" , userScore); 
+  console.log(userScore);
+  var userScore1= document.createElement("p");
+  userScore1.appendChild(userScore);
+  FinalScore.textContent=userScore;
+  console.log(userScore);
+  var currentDiv = document.getElementById("#score-percentage");
+  document.body.insertBefore(userScore1, currentDiv);
+
+
+  // const currentDiv = document.getElementById("div1");
+  // document.body.insertBefore(newDiv, currentDiv);
+// score in out box:FinalScore
+  // value of score box
+  // get saved scores from local storage or set to empty array
+  // format new score object for current user
+  //save to local storage
+  // redirect to next page (window.location.href = highscores.html;)
+}
 
 //timerElement.addEventListener("click", (event) => {
- // event.preventDefault();
+ // event.preventDzefault();
   //setTime();
 //});
 
 
 //EVENT LISTENERS
-//start quiz with click and begins timer countdown 
+//start quiz with click and begins timer countdown
+
+
+
 startButton.addEventListener("click", (event) => {
-  event.preventDefault();
-  setTime();
-  startQuiz();
+   event.preventDefault();
+   startQuiz();
+   setTime();
 });
 
 
@@ -225,9 +257,17 @@ startButton.addEventListener("click", (event) => {
 answerOptions.addEventListener("click", (event) => {
   event.preventDefault();
   compareAnswer(event);
+  
+});
+
+submitButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  saveHighscore(event);
+
 });
 
 
+// event handler function to be executed onclick event of HTML element with submitButton
 
 
 

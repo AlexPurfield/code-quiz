@@ -7,9 +7,6 @@
     <title>Alex Purfield Coding Quiz</title>
     <link rel="stylesheet" href="style.css" />
     <script src="./script.js">
-      function redirect() {
-        window.location.href = "https://google.com";
-      }
     </script>
   </head>
 
@@ -45,10 +42,32 @@
         <label for="initials">Initials:</label>
         <input type="text" name="initials" id="input-initials" style="color: black;"
         placeholder="Type your initials here"/>
-        <button id="submit-initials" onclick="redirect()"> Submit </button>
+        <button id="submit-initials"> Submit </button>
       </form>
     </div>
 
     <script src="./script.js"></script>
   </body>
 </html>
+
+
+<!--  -->
+<!-- while you are going to create a highscore function in the script.js The function will  have to
+-get value of score input box
+-make sure value wasn't empty
+-get saved scores from localstorage, or if not any, set to empty array
+-format new score object for current user
+-save to localstorage
+-redirect to next page (window.location.href = 'highscores.html';)
+4:16
+ // Define the saveHighscore function
+    function saveHighscore() {
+      // Your code to save the highscore goes here
+      console.log('Highscore saved!');
+    }
+
+    // Attach the event handler to the button
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.onclick = saveHighscore;
+4:17
+the above code sets an event handler function, saveHighscore, to be executed when the onclick event of an HTML element with the id submitBtn is triggered -->
