@@ -1,4 +1,4 @@
-# code-quiz
+# Alex Purfield Code Quiz
 
 # Acceptance Criteria
 GIVEN I am taking a code quiz
@@ -13,5 +13,20 @@ THEN the game is over
 WHEN the game is over
 THEN I can save my initials and score
 
-# My Portfolio
+# My code quiz
+
+This was absolutely the most difficult challenge thus far. Bringing together all of the information was certainly a challenge but having a gameplan going in and asking for help was vital in getting through this project.
+
+# Tech and languages
+
+* Visual Studio Code
+
+* github
+
+* JavaScript
+
+* html/css 
+
+
+
 

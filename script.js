@@ -13,10 +13,7 @@ var currentQuestionIndex = 0;
 
 var userCorrect = 0; //number of correct answers
 var userIncorrect = 0; //number of incorrect answers
-// let initialInput = document.getElementById("input-initials").value;
 
-//var userScore= document.getElementById("#final-score");
-//userScore.setAttribute("hidden", "true");
 var initials = document.querySelector("#input-initials");
 
 
@@ -180,22 +177,19 @@ function compareAnswer(event) {
    
     FinalScore.textContent=userScoreFunc;
     console.log(userScoreFunc);
-    //endQuiz.appendChild(userScore);
-    //initialInput.textContent= initialInput;
-    //var userInitials = initialInput.textContent;
+ 
   
   }
 }
 
 
-//console.log(userScore);
 
 var timerElement = document.querySelector("h3");
 
 var secondsLeft = 60;
 
 
-
+//set timer
 function setTime()  {
 var timerInterval = setInterval(function()  {
   secondsLeft--;
@@ -210,6 +204,7 @@ var timerInterval = setInterval(function()  {
   }, 1000);
   
 }
+//save scores and initials to localstorage 
 function saveHighscore() {
   userCorrect.textContent=userCorrect;
   userIncorrect.textContent=userIncorrect;
@@ -225,32 +220,10 @@ function saveHighscore() {
 
 
 
-
-
-
-
-
-
-
-  // const currentDiv = document.getElementById("div1");
-  // document.body.insertBefore(newDiv, currentDiv);
-// score in out box:FinalScore
-  // value of score box
-  // get saved scores from local storage or set to empty array
-  // format new score object for current user
-  //save to local storage
-  // redirect to next page (window.location.href = highscores.html;)
-
-//timerElement.addEventListener("click", (event) => {
- // event.preventDzefault();
-  //setTime();
-//});
-
-
 //EVENT LISTENERS
 //start quiz with click and begins timer countdown
 
-
+//start quiz and timer
 if  (startButton) {
 startButton.addEventListener("click", (event) => {          event.preventDefault();
   startQuiz();
@@ -259,6 +232,7 @@ startButton.addEventListener("click", (event) => {          event.preventDefault
 }
 
 
+// compare user answer to righ answer 
 if (answerOptions)  {// shows answer options 
 answerOptions.addEventListener("click", (event) => {
   event.preventDefault();
@@ -269,6 +243,8 @@ answerOptions.addEventListener("click", (event) => {
 });
 }
 
+
+// move to score board page after submit event listener
 if (submitButton) {
 submitButton.addEventListener("click", (event) => {
   event.preventDefault();
@@ -282,11 +258,6 @@ submitButton.addEventListener("click", (event) => {
 
 }
 
-// document.addEventListener("DOMContentLoaded", (event) => {
-//   console.log("DOM fully loaded and parsed");
-// });
-
-// event handler function to be executed onclick event of HTML element with submitButton
 
 
 
