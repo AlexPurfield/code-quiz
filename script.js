@@ -17,7 +17,7 @@ var userIncorrect = 0; //number of incorrect answers
 
 //var userScore= document.getElementById("#final-score");
 //userScore.setAttribute("hidden", "true");
-var initials = document.querySelector("form input");
+var initials = document.querySelector("#input-initials");
 
 
 var questionsList = [   //List of questions in an array var
@@ -217,10 +217,15 @@ function saveHighscore() {
   console.log (totalAnswers);
   var userScoreFunc = userCorrect/totalAnswers*100;
   localStorage.setItem('score', JSON.stringify(userScoreFunc));
-  var initialsSave=initials.textContent
-  console.log ("your initials" + initialsSave);
-  window.localStorage.setItem('Initials', JSON.parse(initialsSave));
+  var initialsSave= initials.value
+  console.log ( initialsSave);
+  window.localStorage.setItem('Initials', JSON.stringify (initialsSave));
+
 }
+
+
+
+
 
 
 
@@ -269,6 +274,10 @@ submitButton.addEventListener("click", (event) => {
   event.preventDefault();
   saveHighscore();
   console.log ("You just submitted");
+  if (submitButton) {
+    (window.location.href = "highscores.html");
+    
+    }
 });
 
 }
