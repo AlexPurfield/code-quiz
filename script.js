@@ -1,22 +1,23 @@
 //VARIABLES
 var questionsFormElement = document.querySelector("#quiz-form");
-var startButton = document.getElementById("#start");
+var startButton = document.getElementById("start");
 var questionBody = document.querySelector("h2");
 var answerOptions = document.querySelector("ul"); //accessing the array of answers withing questions list to display the multiple choice answers in the ul in the html (questionsList.answerList[0])
 var welcomeSection = document.querySelector("#welcome-page");
 var endQuiz = document.querySelector(".finished-quiz")
 
-var submitButton = document.getElementById("#submit-initals");
+var submitButton = document.getElementById("submit-btn");
 var FinalScore=document.querySelector("#score-percentage");
 
 var currentQuestionIndex = 0;
 
 var userCorrect = 0; //number of correct answers
 var userIncorrect = 0; //number of incorrect answers
-
+// let initialInput = document.getElementById("input-initials").value;
 
 //var userScore= document.getElementById("#final-score");
 //userScore.setAttribute("hidden", "true");
+var initials = document.querySelector("form input");
 
 
 var questionsList = [   //List of questions in an array var
@@ -173,7 +174,8 @@ function compareAnswer(event) {
     var totalAnswers = userCorrect + userIncorrect;
     console.log (totalAnswers);
     var userScoreFunc = userCorrect/totalAnswers*100;
-    localStorage.setItem("Score" , userScoreFunc); 
+    localStorage.setItem('score', JSON.stringify(userScoreFunc));
+  
   
    
     FinalScore.textContent=userScoreFunc;
@@ -181,8 +183,7 @@ function compareAnswer(event) {
     //endQuiz.appendChild(userScore);
     //initialInput.textContent= initialInput;
     //var userInitials = initialInput.textContent;
-    var initialInput = document.querySelector("#input-initials").value; localStorage.setItem("initials", initialInput);
-    document.getElementById('input-initials').value=localStorage.getItem("initials");
+  
   }
 }
 
@@ -212,17 +213,18 @@ var timerInterval = setInterval(function()  {
 function saveHighscore() {
   userCorrect.textContent=userCorrect;
   userIncorrect.textContent=userIncorrect;
-  var totalAnswers2 = userCorrect + userIncorrect;
-  console.log (totalAnswers2);
-  var userScore = userCorrect/totalAnswers2*100;
-  localStorage.setItem("Score" , userScore); 
-  console.log(userScore);
-  var userScore1= document.createElement("p");
-  userScore1.appendChild(userScore);
-  FinalScore.textContent=userScore;
-  console.log(userScore);
-  var currentDiv = document.getElementById("#score-percentage");
-  document.body.insertBefore(userScore1, currentDiv);
+  var totalAnswers = userCorrect + userIncorrect;
+  console.log (totalAnswers);
+  var userScoreFunc = userCorrect/totalAnswers*100;
+  localStorage.setItem('score', JSON.stringify(userScoreFunc));
+  var initialsSave=initials.textContent
+  console.log ("your initials" + initialsSave);
+  window.localStorage.setItem('Initials', JSON.parse(initialsSave));
+}
+
+
+
+
 
 
   // const currentDiv = document.getElementById("div1");
@@ -233,7 +235,6 @@ function saveHighscore() {
   // format new score object for current user
   //save to local storage
   // redirect to next page (window.location.href = highscores.html;)
-}
 
 //timerElement.addEventListener("click", (event) => {
  // event.preventDzefault();
@@ -245,27 +246,36 @@ function saveHighscore() {
 //start quiz with click and begins timer countdown
 
 
-
-startButton.addEventListener("click", (event) => {
-   event.preventDefault();
-   startQuiz();
-   setTime();
+if  (startButton) {
+startButton.addEventListener("click", (event) => {          event.preventDefault();
+  startQuiz();
+  setTime();
 });
+}
 
 
-// shows answer options 
+if (answerOptions)  {// shows answer options 
 answerOptions.addEventListener("click", (event) => {
   event.preventDefault();
   compareAnswer(event);
+  console.log ("getting answers");
+  
   
 });
+}
 
+if (submitButton) {
 submitButton.addEventListener("click", (event) => {
   event.preventDefault();
-  saveHighscore(event);
-
+  saveHighscore();
+  console.log ("You just submitted");
 });
 
+}
+
+// document.addEventListener("DOMContentLoaded", (event) => {
+//   console.log("DOM fully loaded and parsed");
+// });
 
 // event handler function to be executed onclick event of HTML element with submitButton
 
